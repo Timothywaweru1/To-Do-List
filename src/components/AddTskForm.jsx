@@ -1,9 +1,4 @@
-import React from 'react'
-
-function AddTskForm() {
-  return (
-    <div>
-       import React, { useState } from 'react';
+import React, { useState } from 'react';
 
 function AddTaskForm({ addTask }) {
   const [taskTitle, setTaskTitle] = useState('');
@@ -30,9 +25,4 @@ function AddTaskForm({ addTask }) {
   );
 }
 
-export default AddTaskForm; 
-    </div>
-  )
-}
-
-export default AddTskForm
+export default AddTaskForm;
