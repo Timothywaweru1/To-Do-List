@@ -1,35 +1,67 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import './index.css';
+import AddTaskForm from './components/AddTaskForm';
+import TaskItem from './components/TaskItem';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [tasks, setTasks] = useState([]);
+
+  const handleAddTask = (newTask) => {
+    setTasks((prevTasks) => [...prevTasks, newTask]);
+  };
+
+  const handleDeleteTask = (id) => {
+    setTasks((prevTasks) => prevTasks.filter(task => task.id !== id));
+  };
+
+  const handleUpdateTask = (id, updatedTask) => {
+    setTasks((prevTasks) =>
+      prevTasks.map(task => (task.id === id ? updatedTask : task))
+    );
+  };
+
+  const toggleTask = (id) => {
+    setTasks((prevTasks) =>
+      prevTasks.map(task =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+      <header>
+        <h1>Task Tracker</h1>
+        <p>Track your to-dos effortlessly</p>
+      </header>
+
+      <AddTaskForm addTask={handleAddTask} />
+
+      <div className="tasks-header">Tasks</div>
+
+      <div id="tasks-list">
+        {tasks.length > 0 ? (
+          tasks.map((task) => (
+            <TaskItem
+              key={task.id}
+              task={task}
+              onDelete={handleDeleteTask}
+              onUpdate={handleUpdateTask}
+              toggleTask={toggleTask}
+            />
+          ))
+        ) : (
+          <p className="no-tasks">No tasks yet. Add one above!</p>
+        )}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+
+      <div className="task-stats">
+        {tasks.length === 0
+          ? 'No tasks yet'
+          : `${tasks.length} task${tasks.length > 1 ? 's' : ''} total`}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
