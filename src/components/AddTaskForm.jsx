@@ -19,7 +19,7 @@ function AddTaskForm({ addTask }) {
     value={taskTitle}
     onChange={(e) => setTaskTitle(e.target.value)}
   />
-  <button type="submit">Add Task</button>
+  <button type="submit" className='add'>Add Task</button>
 </form>
 
   );

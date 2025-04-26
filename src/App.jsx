@@ -32,7 +32,7 @@ function App() {
     <div className="container">
       <header>
         <h1>Task Tracker</h1>
-        <p>Track your to-dos effortlessly</p>
+        <p>Write down your tasks</p>
       </header>
 
       <AddTaskForm addTask={handleAddTask} />
